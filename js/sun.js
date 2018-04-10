@@ -4,6 +4,7 @@ var coords = {
     addressStr: [],
 }
 
+
 function initMap() {
     var geocoder = new google.maps.Geocoder(); // Greates a Geocoder object to convert user input to lat and lng
     $('#location-form-2').on('submit', function (event) {                        
@@ -37,7 +38,6 @@ function geocodeAddress(geocoder,address) {
     });
 };
 
-
 function getUVIndex() {
     var lat = coords.lat;
     var lng = coords.lng;
@@ -54,10 +54,35 @@ function getUVIndex() {
     }).then(function (response) {
         var results = response;
         var uv = response.currently.uvIndex;
-        
+
         $("#uv").text(uv);
         $("#location").text(coords.addressStr);
         $("#location-2").text(coords.addressStr);
 
     })
 }
+
+
+var clock;
+
+$(document).ready(function () {
+    clock = $(".clock").FlipClock({
+        clockFace: "TwentyFourHourClock",
+        showSeconds: false
+    });
+    var weekday = new Array(7);
+    weekday[0] = "Sunday";
+    weekday[1] = "Monday";
+    weekday[2] = "Tuesday";
+    weekday[3] = "Wednesday";
+    weekday[4] = "Thursday";
+    weekday[5] = "Friday";
+    weekday[6] = "Saturday";
+    var date = new Date();
+    var day1 = weekday[date.getDay()];
+    var day2 = weekday[date.getDay() + 1];
+    var day3 = weekday[date.getDay() + 2];
+    $("#day1").text(day1);
+    $("#day2").text(day2);
+    $("#day3").text(day3);
+});
