@@ -13,79 +13,44 @@
     <!-- Custom -->
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
 </head>
+
 <body>
-
-  <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo">Sunblocker</a>
-      <ul class="right hide-on-med-and-down">
-        <li>
-          <a id="location-2" href="#">Current Location</a>
-        </li>
-      </ul>
-
-      <ul id="nav-mobile" class="sidenav black-text">
-        <li>
-          <a id="location" href="#">Current Location</a>
-        </li>
-        <li>
-            <form id="location-form">
-                  <div class="input-field">
-                    <i class="material-icons prefix">add_location</i>
-                    <input id="search" type="tel" class="validate" name="location">
-                    <label for="search">Change Location</label>
-                  </div>
-              </form>
-        </li>
-      </ul>
-
-      <form id="location-form-2" class="right hide-on-med-and-down">
-        <div class="input-field">
-          <input id="search-2" type="search" placeholder="Change Location" required>
-          <label class="label-icon" for="search">
-            <i class="material-icons">add_location</i>
-          </label>
-          <i class="material-icons">close</i>
-        </div>
-      </form>
 
     <nav class="light-blue lighten-1" role="navigation">
         <div class="nav-wrapper container">
             <a id="logo-container" href="#" class="brand-logo">Sunblocker</a>
             <ul class="right hide-on-med-and-down">
                 <li>
-                    <button id="navGo" class="btn btn-secondary hide" type="button">Go!</button>
-                </li>
-                <li>
-                    <a href="#">Current Location</a>
+                    <a id="location-2" href="#">Current Location</a>
                 </li>
             </ul>
 
             <ul id="nav-mobile" class="sidenav black-text">
                 <li>
-                    <a href="#">Current Location</a>
+                    <a id="location" href="#">Current Location</a>
                 </li>
                 <li>
-                    <form>
+                    <form id="location-form">
                         <div class="input-field">
                             <i class="material-icons prefix">add_location</i>
-                            <input id="new_location" type="tel" class="validate">
-                            <label for="new_location">Change Location</label>
+                            <input id="search" type="tel" class="validate" name="location">
+                            <label for="search">Change Location</label>
                         </div>
-                        <button id="sideGo" class="btn btn-secondary hide" type="button">Go!</button>
                     </form>
                 </li>
             </ul>
 
-            <form class="right hide-on-med-and-down">
+            <form id="location-form-2" class="right hide-on-med-and-down">
                 <div class="input-field">
-                    <input id="search" type="search" placeholder="Change Location" required>
+                    <input id="search-2" type="search" placeholder="Change Location" required>
                     <label class="label-icon" for="search">
                         <i class="material-icons">add_location</i>
                     </label>
                     <i class="material-icons">close</i>
                 </div>
             </form>
+
+
 
             <a href="#" data-target="nav-mobile" class="sidenav-trigger">
                 <i class="material-icons">menu</i>
@@ -100,9 +65,10 @@
                     <span class="card-title">Current UV Index</span>
                     <hr>
                     <br>
-                    <span id="uvIndex" class="card-title">UV Index</span>
-                    <br>
-                    <img class="responsive-img" src="images/sun.png" alt="Sun">
+                    <div class="imageContainer valign-wrapper">
+                        <span id="uvIndex" class="imgOverlay center-align"></span>
+                        <img class="responsive-img" src="images/sun.png" alt="Sun">
+                    </div>
                 </div>
                 <div class="card-action">
                     <span class="card-title white-text">You need to use Sunscreen!</span>
@@ -171,8 +137,10 @@
     <!--  Scripts -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/sun.js"></script>
+    <script src="js/init.js"></script>
 
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU-rx3uuS6X6UTzkWCwFz0M609V_CDRfo&callback=initMap"></script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU-rx3uuS6X6UTzkWCwFz0M609V_CDRfo&callback=initMap"></script>
 
     <!-- Materialize -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
@@ -180,8 +148,7 @@
 
     <script src="https://momentjs.com/downloads/moment.js"></script>
     <script src="js/materialize.js"></script>
-    <script src="js/sun.js"></script>
-    <script src="js/init.js"></script>
+
     <script src="js/flipclock.min.js"></script>
 
 </body>
