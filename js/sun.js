@@ -57,6 +57,7 @@ function getUVIndex() {
         
         $("#uv").text(uv);
         $("#location").text(coords.addressStr);
+        $("#location-2").text(coords.addressStr);
 
     })
 }
