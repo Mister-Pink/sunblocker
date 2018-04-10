@@ -30,7 +30,6 @@ function geocodeAddress(geocoder) {
     });
 };
 
-
 function getUVIndex() {
     var lat = coords.lat;
     var lng = coords.lng;
