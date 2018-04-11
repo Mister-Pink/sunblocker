@@ -62,9 +62,10 @@
                     <span class="card-title">Current UV Index</span>
                     <hr>
                     <br>
-                    <span id="uvIndex" class="card-title">UV Index</span>
-                    <br>
-                    <img class="responsive-img" src="images/sun.png" alt="Sun">
+                    <div class="imageContainer valign-wrapper">
+                        <span id="uvIndex" class="imgOverlay center-align"></span>
+                        <img class="responsive-img" src="images/sun.png" alt="Sun">
+                    </div>
                 </div>
                 <div class="card-action">
                     <span class="card-title white-text">You need to use Sunscreen!</span>
@@ -79,6 +80,7 @@
                 <div class="card-content white-text">
                     <span class="card-title">Timer Container</span>
                     <div class="clock"></div>
+                    <div class="sunscreen" id="sun"><a class="waves-effect waves-light btn">Apply Sunscreen Now</a></div>
                 </div>
             </div>
         </div>
@@ -138,7 +140,7 @@
     <!--  Scripts -->    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/sun.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU-rx3uuS6X6UTzkWCwFz0M609V_CDRfo&callback=initMap"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR3qcLr-2o-JdTPfU0kldROrF7P9xVARU&callback=initMap"></script>
 
     <!-- Materialize -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
