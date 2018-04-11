@@ -130,8 +130,7 @@ var clock;
 
 $(document).ready(function () {
     clock = $(".clock").FlipClock({
-        clockFace: "TwentyFourHourClock",
-        showSeconds: false
+        clockFace: "TwelveHourClock"
     });
     var weekday = new Array(7);
     weekday[0] = "Sunday";
