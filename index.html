@@ -10,6 +10,11 @@
     <!-- Materialize -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <!-- Vex -->
+    <script src="js/vex.combined.min.js"></script>
+    <script>vex.defaultOptions.className = 'vex-theme-flat-attack'</script>
+    <link rel="stylesheet" href="css/vex.css" />
+    <link rel="stylesheet" href="css/vex-theme-flat-attack.css" />
     <!-- Custom -->
     <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
 </head>
@@ -57,7 +62,7 @@
 
     <div class="row">
         <div class="col s12">
-            <div class="card blue-grey darken-1 center">
+            <div class="card teal center">
                 <div class="card-content white-text">
                     <span class="card-title">Current UV Index</span>
                     <hr>
@@ -67,20 +72,17 @@
                         <img class="responsive-img" src="images/sun.png" alt="Sun">
                     </div>
                 </div>
-                <div class="card-action">
-                    <span class="card-title white-text">You need to use Sunscreen!</span>
-                </div>
             </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col s12">
-            <div class="card blue-grey darken-1 center">
+            <div class="card teal center">
                 <div class="card-content white-text">
-                    <span class="card-title">Timer Container</span>
+                    <span id="apply" class="card-title">You need to apply sunscreen!</span>
                     <div class="clock"></div>
-                    <div class="sunscreen" id="sun"><a class="waves-effect waves-light btn">Apply Sunscreen Now</a></div>
+                    <div class="sunscreen" id="sun"><a class="waves-effect purple btn">Apply Sunscreen Now</a></div>
                 </div>
             </div>
         </div>
@@ -88,9 +90,9 @@
 
     <div class="row">
         <div class="col s12">
-            <div class="card blue-grey darken-1 center">
+            <div class="card teal center">
                 <div class="card-content white-text">
-                    <span class="card-title">Forecast Container</span>
+                    <span class="card-title">3 Day UV Forecast</span>
                     <table class="centered highlight">
                         <thead>
                             <tr>
