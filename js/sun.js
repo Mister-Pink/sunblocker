@@ -4,17 +4,30 @@ var coords = {
     addressStr: [],
 }
 
+var config = {
+    apiKey: "AIzaSyBLtmYZZyEL9qO12gnAady4qj-Vrvurk4o",
+    authDomain: "proj-group-6-1522726463174.firebaseapp.com",
+    databaseURL: "https://proj-group-6-1522726463174.firebaseio.com",
+    projectId: "proj-group-6-1522726463174",
+    storageBucket: "proj-group-6-1522726463174.appspot.com",
+    messagingSenderId: "278515349370"
+  };
+  firebase.initializeApp(config);
+
+var SUNdb = firebase.database();
 
 function initMap() {
     var geocoder = new google.maps.Geocoder(); // Greates a Geocoder object to convert user input to lat and lng
     $('#location-form-2').on('submit', function (event) {                        
         //adress can be zip code or any for of place name
         var address = $("#search-2").val().trim();
+        $("#search-2").val("");
         geocodeAddress(geocoder,address); // Uses geocoder, map objects to do coordinate conversion                       
         event.preventDefault();
     })
     $('#location-form').on('submit', function (event) {  
-        var address = $("#search").val().trim();                      
+        var address = $("#search").val().trim();  
+        $("#search").val("");                    
         geocodeAddress(geocoder,address); // Uses geocoder, map objects to do coordinate conversion                       
         event.preventDefault();
     })
@@ -60,6 +73,16 @@ function getUVIndex() {
         var uv_tomorrowTime = moment(response.daily.data[1].uvIndexTime,'X').format('h:mm a');
         var uv_dayAfter = response.daily.data[2].uvIndex;
         var uv_dayAfterTime = moment(response.daily.data[2].uvIndexTime,'X').format('h:mm a');
+
+        SUNdb.ref().push({
+            LastLocation: coords.addressStr,
+            UV: uv,
+            UV_today: uv_today,
+            UV_todayTime: uv_todayTime,
+            UV_tomorrow: uv_tomorrow,
+            UV_tomorrowTime: uv_tomorrowTime,
+            UV_dayAfter: uv_dayAfter,
+        });
 
         $("#uvIndex").text(uv);
         $("#location").text(coords.addressStr);
