@@ -22,7 +22,6 @@ function initMap() {
 
 // retreiving user input and set up of Geocoder
 function geocodeAddress(geocoder,address) {    
-    console.log(address);
     geocoder.geocode({
         'address': address
     }, function (results, status) {
@@ -55,7 +54,7 @@ function getUVIndex() {
         var results = response;
         var uv = response.currently.uvIndex;
 
-        $("#uv").text(uv);
+        $("#uvIndex").text(uv);
         $("#location").text(coords.addressStr);
         $("#location-2").text(coords.addressStr);
 
