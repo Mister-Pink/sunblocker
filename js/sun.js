@@ -74,6 +74,57 @@ function getUVIndex() {
     })
 }
 
+function setGoalTime() {
+    var goalTime = moment().add(2, 'hours').format("h:mm:ss a");
+    console.log("goal time: " + goalTime);
+    localStorage.setItem("goalTime", JSON.stringify(goalTime)); 
+}
+
+
+function clearGoalTime() {
+    var storageCheck = JSON.parse(localStorage.getItem("goalTime"));
+    if (!Array.isArray(storageCheck)) {
+        storageCheck = null;
+    }
+}
+
+function setSunTimer() {
+    $(".btn").on("click", function(event) {
+        event.preventDefault();
+        clearGoalTime();
+        var setInitialTime = moment();
+        console.log("initial time: " + setInitialTime);
+        setGoalTime();
+        runTimer();
+    })
+}
+setSunTimer();
+
+var intervalId;
+
+function runTimer() {
+    clearInterval(intervalId);
+    intervalId = setInterval(checkTime, 5000);
+    //5 * 60 * 1000  
+}
+
+function endTimer() {
+    clearInterval(intervalId);
+}
+
+function checkTime() {
+    var currentTime = moment().format("h:mm:ss a");
+    console.log("Grabbing current: " + currentTime);
+    var checkGoalTime = JSON.parse(localStorage.getItem("goalTime"));
+    console.log("Check goal time: " + checkGoalTime);
+
+
+    if (currentTime >= checkGoalTime) {
+        endTimer();
+    }
+
+}
+
 
 var clock;
 
