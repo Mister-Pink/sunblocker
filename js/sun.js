@@ -4,7 +4,6 @@ var coords = {
     addressStr: [],
 }
 
-
 function initMap() {
     var geocoder = new google.maps.Geocoder(); // Greates a Geocoder object to convert user input to lat and lng
     $('#location-form-2').on('submit', function (event) {                        
@@ -22,7 +21,6 @@ function initMap() {
 
 // retreiving user input and set up of Geocoder
 function geocodeAddress(geocoder,address) {    
-    console.log(address);
     geocoder.geocode({
         'address': address
     }, function (results, status) {
@@ -33,6 +31,7 @@ function geocodeAddress(geocoder,address) {
             coords.addressStr = results[0].formatted_address;            
             getUVIndex();        
         } else {
+            // change to modal
             console.log('Geocode was not successful for the following reason: ' + status);
         }
     });
@@ -61,6 +60,59 @@ function getUVIndex() {
 
     })
 }
+
+function setGoalTime() {
+    var goalTime = moment().add(2, 'hours').format("h:mm:ss a");
+    console.log("goal time: " + goalTime);
+    localStorage.setItem("goalTime", JSON.stringify(goalTime)); 
+}
+
+
+function clearGoalTime() {
+    var storageCheck = JSON.parse(localStorage.getItem("goalTime"));
+    if (!Array.isArray(storageCheck)) {
+        storageCheck = null;
+    }
+}
+
+function setSunTimer() {
+    $(".btn").on("click", function(event) {
+        event.preventDefault();
+        clearGoalTime();
+        var setInitialTime = moment();
+        console.log("initial time: " + setInitialTime);
+        setGoalTime();
+        runTimer();
+    })
+}
+setSunTimer();
+
+var intervalId;
+
+function runTimer() {
+    clearInterval(intervalId);
+    intervalId = setInterval(checkTime, 5000);
+    //5 * 60 * 1000  
+}
+
+function endTimer() {
+    clearInterval(intervalId);
+}
+
+function checkTime() {
+    var currentTime = moment().format("h:mm:ss a");
+    console.log("Grabbing current: " + currentTime);
+    var checkGoalTime = JSON.parse(localStorage.getItem("goalTime"));
+    console.log("Check goal time: " + checkGoalTime);
+
+
+    if (currentTime >= checkGoalTime) {
+        endTimer();
+    }
+
+}
+//moment(setInitialTime).add(1, 'minutes').format("h:mm:ss a");
+
 
 
 var clock;
