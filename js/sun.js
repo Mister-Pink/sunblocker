@@ -51,13 +51,26 @@ function getUVIndex() {
             withCredentials: false
         }
     }).then(function (response) {
+        console.log(response)
         var results = response;
         var uv = response.currently.uvIndex;
+        var uv_today = response.daily.data[0].uvIndex;
+        var uv_todayTime = moment(response.daily.data[0].uvIndexTime,'X').format('h:mm a');
+        var uv_tomorrow = response.daily.data[1].uvIndex;
+        var uv_tomorrowTime = moment(response.daily.data[1].uvIndexTime,'X').format('h:mm a');
+        var uv_dayAfter = response.daily.data[2].uvIndex;
+        var uv_dayAfterTime = moment(response.daily.data[2].uvIndexTime,'X').format('h:mm a');
 
         $("#uvIndex").text(uv);
         $("#location").text(coords.addressStr);
         $("#location-2").text(coords.addressStr);
-
+        //set forecast UV
+        $("#day1uv").text(uv_today);
+        $("#day2uv").text(uv_tomorrow);
+        $("#day3uv").text(uv_dayAfter);
+        $("#day1uvTime").text("at " + uv_todayTime);
+        $("#day2uvTime").text("at " + uv_tomorrowTime);
+        $("#day3uvTime").text("at " + uv_dayAfterTime);
     })
 }
 
@@ -85,3 +98,4 @@ $(document).ready(function () {
     $("#day2").text(day2);
     $("#day3").text(day3);
 });
+
