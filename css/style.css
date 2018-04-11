@@ -18,12 +18,6 @@ main {
   flex: 1 0 auto;
 }
 
-#map1 {
-    height: 400px;
-    width: auto;
-}
-
-
 /* Get the bourbon mixin from http://bourbon.io */
 /* Reset */
 .flip-clock-wrapper * {
