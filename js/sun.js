@@ -11,30 +11,30 @@ var config = {
     projectId: "proj-group-6-1522726463174",
     storageBucket: "proj-group-6-1522726463174.appspot.com",
     messagingSenderId: "278515349370"
-  };
-  firebase.initializeApp(config);
+};
+firebase.initializeApp(config);
 
 var SUNdb = firebase.database();
 
 function initMap() {
     var geocoder = new google.maps.Geocoder(); // Greates a Geocoder object to convert user input to lat and lng
-    $('#location-form-2').on('submit', function (event) {                        
+    $('#location-form-2').on('submit', function (event) {
         //adress can be zip code or any for of place name
         var address = $("#search-2").val().trim();
         $("#search-2").val("");
-        geocodeAddress(geocoder,address); // Uses geocoder, map objects to do coordinate conversion                       
+        geocodeAddress(geocoder, address); // Uses geocoder, map objects to do coordinate conversion                       
         event.preventDefault();
     })
-    $('#location-form').on('submit', function (event) {  
-        var address = $("#search").val().trim();  
-        $("#search").val("");                    
-        geocodeAddress(geocoder,address); // Uses geocoder, map objects to do coordinate conversion                       
+    $('#location-form').on('submit', function (event) {
+        var address = $("#search").val().trim();
+        $("#search").val("");
+        geocodeAddress(geocoder, address); // Uses geocoder, map objects to do coordinate conversion                       
         event.preventDefault();
     })
 };
 
 // retreiving user input and set up of Geocoder
-function geocodeAddress(geocoder,address) {    
+function geocodeAddress(geocoder, address) {
     geocoder.geocode({
         'address': address
     }, function (results, status) {
@@ -42,8 +42,8 @@ function geocodeAddress(geocoder,address) {
             // get lat and Lng and assign them to coords object
             coords.lat = results[0].geometry.location.lat();
             coords.lng = results[0].geometry.location.lng();
-            coords.addressStr = results[0].formatted_address;            
-            getUVIndex();        
+            coords.addressStr = results[0].formatted_address;
+            getUVIndex();
         } else {
             console.log('Geocode was not successful for the following reason: ' + status);
         }
@@ -68,11 +68,11 @@ function getUVIndex() {
         var results = response;
         var uv = response.currently.uvIndex;
         var uv_today = response.daily.data[0].uvIndex;
-        var uv_todayTime = moment(response.daily.data[0].uvIndexTime,'X').format('h:mm a');
+        var uv_todayTime = moment(response.daily.data[0].uvIndexTime, 'X').format('h:mm a');
         var uv_tomorrow = response.daily.data[1].uvIndex;
-        var uv_tomorrowTime = moment(response.daily.data[1].uvIndexTime,'X').format('h:mm a');
+        var uv_tomorrowTime = moment(response.daily.data[1].uvIndexTime, 'X').format('h:mm a');
         var uv_dayAfter = response.daily.data[2].uvIndex;
-        var uv_dayAfterTime = moment(response.daily.data[2].uvIndexTime,'X').format('h:mm a');
+        var uv_dayAfterTime = moment(response.daily.data[2].uvIndexTime, 'X').format('h:mm a');
 
         SUNdb.ref().push({
             LastLocation: coords.addressStr,
@@ -98,9 +98,9 @@ function getUVIndex() {
 }
 
 function setGoalTime() {
-    var goalTime = moment().add(2, 'hours').format("h:mm:ss a");
+    var goalTime = moment().add(1, 'minutes').format("h:mm:ss a");
     console.log("goal time: " + goalTime);
-    localStorage.setItem("goalTime", JSON.stringify(goalTime)); 
+    localStorage.setItem("goalTime", JSON.stringify(goalTime));
 }
 
 
@@ -112,7 +112,7 @@ function clearGoalTime() {
 }
 
 function setSunTimer() {
-    $(".btn").on("click", function(event) {
+    $(".btn").on("click", function (event) {
         event.preventDefault();
         clearGoalTime();
         var setInitialTime = moment();
@@ -123,12 +123,25 @@ function setSunTimer() {
 }
 setSunTimer();
 
+
+function restartTimer() {
+    clearGoalTime();
+    var setInitialTime = moment();
+    setGoalTime();
+    runTimer();
+}
+
+
+
+
 var intervalId;
 
 function runTimer() {
     clearInterval(intervalId);
     intervalId = setInterval(checkTime, 5000);
-    //5 * 60 * 1000  
+    //5 * 60 * 1000
+    // be sure to change the time it is checking for every 5 minutes.
+    // make a demo interval timer for people to see it in action.   
 }
 
 function endTimer() {
@@ -143,10 +156,32 @@ function checkTime() {
 
 
     if (currentTime >= checkGoalTime) {
+        modal();
         endTimer();
     }
 
 }
+
+function modal() {
+    vex.dialog.open({
+            message: 'Apply sunscreen now.',
+            buttons: [
+                $.extend({}, vex.dialog.buttons.YES, {
+                    text: 'Apply Sunscreen'
+                }),
+                $.extend({}, vex.dialog.buttons.NO, {
+                    text: 'Cancel'
+                })
+            ],
+            callback: function(data) {
+                if (data) {
+                    restartTimer();
+            }
+        }
+    })
+}
+
+
 
 
 var clock;
@@ -171,4 +206,3 @@ $(document).ready(function () {
     $("#day2").text(day2);
     $("#day3").text(day3);
 });
-
