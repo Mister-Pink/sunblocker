@@ -64,7 +64,7 @@ function getUVIndex() {
             withCredentials: false
         }
     }).then(function (response) {
-        console.log(response)
+        //console.log(response)
         var results = response;
         var uv = response.currently.uvIndex;
         var uv_today = response.daily.data[0].uvIndex;
@@ -98,8 +98,12 @@ function getUVIndex() {
 }
 
 function setGoalTime() {
+    //demo mode
     var goalTime = moment().add(1, 'minutes').format("h:mm:ss a");
-    console.log("goal time: " + goalTime);
+
+    // normal run mode
+    // var goalTime = moment().add(2, 'hours').format("h:mm:ss a");
+    //console.log("goal time: " + goalTime);
     localStorage.setItem("goalTime", JSON.stringify(goalTime));
 }
 
@@ -116,7 +120,7 @@ function setSunTimer() {
         event.preventDefault();
         clearGoalTime();
         var setInitialTime = moment();
-        console.log("initial time: " + setInitialTime);
+        //console.log("initial time: " + setInitialTime);
         setGoalTime();
         runTimer();
     })
@@ -150,9 +154,9 @@ function endTimer() {
 
 function checkTime() {
     var currentTime = moment().format("h:mm:ss a");
-    console.log("Grabbing current: " + currentTime);
+    //console.log("Grabbing current: " + currentTime);
     var checkGoalTime = JSON.parse(localStorage.getItem("goalTime"));
-    console.log("Check goal time: " + checkGoalTime);
+    //console.log("Check goal time: " + checkGoalTime);
 
 
     if (currentTime >= checkGoalTime) {
