@@ -19,7 +19,7 @@ var SUNdb = firebase.database();
 function initMap() {
     var geocoder = new google.maps.Geocoder(); // Greates a Geocoder object to convert user input to lat and lng
     $('#location-form-2').on('submit', function (event) {
-        //adress can be zip code or any for of place name
+        //adress can be zip code or any form of place name
         var address = $("#search-2").val().trim();
         $("#search-2").val("");
         geocodeAddress(geocoder, address); // Uses geocoder, map objects to do coordinate conversion                       
