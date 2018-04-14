@@ -14,7 +14,12 @@ var config = {
 };
 firebase.initializeApp(config);
 
+// Retrieve the Dark Sky API Key hidden in Firebase
 var SUNdb = firebase.database();
+SUNdb.ref().once('value').then(function(snap){
+    DS_AK = snap.val().DS_AK; 
+});
+
 
 function initMap() {
     var geocoder = new google.maps.Geocoder(); // Greates a Geocoder object to convert user input to lat and lng
@@ -41,8 +46,13 @@ function geocodeAddress(geocoder, address) {
         if (status === 'OK') {
             // get lat and Lng and assign them to coords object
             coords.lat = results[0].geometry.location.lat();
-            coords.lng = results[0].geometry.location.lng();
-            coords.addressStr = results[0].formatted_address;
+            coords.lng = results[0].geometry.location.lng();            
+            var temp_str = results[0].formatted_address.split(",");        
+            if (temp_str.length > 3) {
+                coords.addressStr = temp_str.splice(-(temp_str.length-1),3)
+            } else { 
+                coords.addressStr = results[0].formatted_address;
+            }            
             getUVIndex();
         } else {
             console.log('Geocode was not successful for the following reason: ' + status);
@@ -54,7 +64,7 @@ function getUVIndex() {
     var lat = coords.lat;
     var lng = coords.lng;
 
-    var queryURL = "https://api.darksky.net/forecast/2d26fe15c66c821f0486e0a2e0269d50/" + lat + "," + lng;
+    var queryURL = "https://api.darksky.net/forecast/" + DS_AK + "/" + lat + "," + lng;
 
     $.ajax({
         url: queryURL,
@@ -204,8 +214,8 @@ $(document).ready(function () {
     weekday[6] = "Saturday";
     var date = new Date();
     var day1 = weekday[date.getDay()];
-    var day2 = weekday[date.getDay() + 1];
-    var day3 = weekday[date.getDay() + 2];
+    var day2 = weekday[(date.getDay() + 1) % 7];
+    var day3 = weekday[(date.getDay() + 2) % 7];
     $("#day1").text(day1);
     $("#day2").text(day2);
     $("#day3").text(day3);
